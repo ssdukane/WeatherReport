@@ -33,7 +33,7 @@ namespace PRUD.Weather.API.Controllers
         }
 
         // GET api/weather/"london"
-        [HttpGet("{id}")]
+        [HttpGet("{city}")]
         public ActionResult<string> Get(string city)
         {
             var data = CityWeather.GetReportForCityAsJson(city);
