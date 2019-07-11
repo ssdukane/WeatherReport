@@ -3,7 +3,7 @@
 |--------------|
 |* If you're upgrading from 4.x to 5.x, there's several breaking changes to be aware of. See the [release notes](https://github.com/ssdukane/WeatherReport/releases/tag/v1.0.0) for details<br />* If you're making the jump from 3.x to 4.x first, there be dragons there too. See [those release notes here](https://github.com/ssdukane/WeatherReport/releases/tag/v1.0.0)|
 
-# Weather Report Service Web API Standards#
+# Weather Report Service Web API Standards #
 
 * [Guidelines](#guidelines)
 * [RESTful URLs](#restful-urls)
