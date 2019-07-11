@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRUD.Weather.API", "PRUD.Weather.API\PRUD.Weather.API.csproj", "{112F7D6C-2118-4866-841F-DB45EC4963DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PRUD.Weather.API", "PRUD.Weather.API\PRUD.Weather.API.csproj", "{112F7D6C-2118-4866-841F-DB45EC4963DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRUD.Weather.Data", "PRUD.Weather.Data\PRUD.Weather.Data.csproj", "{51AB4289-2C8D-4ED0-9291-A5F872B9C310}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PRUD.Weather.Data", "PRUD.Weather.Data\PRUD.Weather.Data.csproj", "{51AB4289-2C8D-4ED0-9291-A5F872B9C310}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRUD.Weather.Models", "PRUD.Weather.Models\PRUD.Weather.Models.csproj", "{455AF3FD-92EC-49F8-9D1D-CA663C0E7CB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PRUD.Weather.Models", "PRUD.Weather.Models\PRUD.Weather.Models.csproj", "{455AF3FD-92EC-49F8-9D1D-CA663C0E7CB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRUD.Weather.API.Tests", "PRUD.Weather.API.Tests\PRUD.Weather.API.Tests.csproj", "{E5D6E217-4F5E-42C8-91B6-BAE3C4D9F2FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PRUD.Weather.API.Tests", "PRUD.Weather.API.Tests\PRUD.Weather.API.Tests.csproj", "{E5D6E217-4F5E-42C8-91B6-BAE3C4D9F2FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
