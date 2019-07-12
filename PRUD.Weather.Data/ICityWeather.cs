@@ -2,6 +2,8 @@
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using Newtonsoft.Json;
 
 namespace PRUD.Weather.Data
 {
@@ -13,35 +15,44 @@ namespace PRUD.Weather.Data
 
     public class CityWeather: ICityWeather
     {
-        private RestClient Client { get; set; }
+        private Webclient Client { get; set; }
 
         public CityWeather()
-        {            //api.openweathermap.org / data / 2.5 / weather ? q = London & appid = aa69195559bd4f88d79f9aadeb77a8f6
-            Client = new RestClient("http://api.openweathermap.org/data/2.5/weather");
+        {
+            Client = new Webclient();
         }
 
         public WeatherReportForCity GetReportForCity(string city)
-        {            
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("content-type", "content-type");
-            request.AddHeader("appid", "aa69195559bd4f88d79f9aadeb77a8f6");
-            request.AddHeader("q", city);
-
-            IRestResponse<WeatherReportForCity> response = Client.Execute<WeatherReportForCity>(request);
+        {
+            var response = Client.Execute(city);
 
             return response.Data;
         }
 
         public string GetReportForCityAsJson(string city)
         {
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("content-type", "content-type");
-            request.AddParameter("appid", "aa69195559bd4f88d79f9aadeb77a8f6");
-            request.AddParameter("q", city);
-
-            IRestResponse<WeatherReportForCity> response = Client.Execute<WeatherReportForCity>(request);
+            var response = Client.Execute(city);
 
             return response.Content;
         }
+
+        public string GenerateReportForCity(string city)
+        {
+            var response = Client.Execute(city);
+            var result = Utilities.SaveWeatherReportForCity(city, response.Content);
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        public string GenerateReportCitiwise(IEnumerable<string> cities)
+        {
+            dynamic result = new ExpandoObject();
+            foreach(var city in cities)
+            {
+                Utilities.AddProperty(result, city, GenerateReportForCity(city));
+            }
+
+            return JsonConvert.SerializeObject(result); ;
+        }      
     }
 }

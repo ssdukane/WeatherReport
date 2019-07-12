@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="outputfolder\" />
     <Folder Include="Reports\" />
   </ItemGroup>
 

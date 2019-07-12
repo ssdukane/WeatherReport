@@ -6,7 +6,7 @@ namespace PRUD.Weather.API.Tests
     public class UnitTest1
     {
         [Fact]
-        public void Test1()
+        public void GetReportforCityTest1()
         {
 
         }

@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Http;
 using PRUD.Weather.Data;
 using System.IO;
 using System.Net.Http.Headers;
+using Newtonsoft.Json;
+
 
 namespace PRUD.Weather.API.Controllers
 {
@@ -29,14 +31,15 @@ namespace PRUD.Weather.API.Controllers
         public ActionResult<IEnumerable<string>> Get()
         {
             //var  CityWeather.GetReportForCity("london");
-            return new string[] { "value1", "value2" };
+            return new string[] { "welcome to Weather Report Service", "-----@@@----" };
         }
 
         // GET api/weather/"london"
         [HttpGet("{city}")]
         public ActionResult<string> Get(string city)
         {
-            var data = CityWeather.GetReportForCityAsJson(city);
+            var data = CityWeather.GenerateReportForCity(city);
+
             return data;
         }
 
@@ -60,7 +63,53 @@ namespace PRUD.Weather.API.Controllers
                         file.CopyTo(stream);
                     }
 
-                    return Ok(new { dbPath });
+                    var content = Utilities.ReadATextFile(fullPath);
+
+                    var result = CityWeather.GenerateReportCitiwise(content);
+                                                         
+                    return Ok(new { dbPath , result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpPost, DisableRequestSizeLimit]
+        public IActionResult Upload(char separator)
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("Reports");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(folderName, fileName);
+
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    if (separator == ' ')
+                    {
+                        separator = ',';                        
+                    }
+
+                    var content = Utilities.ReadATextFile(fullPath);
+
+                    var result = CityWeather.GenerateReportCitiwise(content);
+
+                    return Ok(new { dbPath, result });
                 }
                 else
                 {
