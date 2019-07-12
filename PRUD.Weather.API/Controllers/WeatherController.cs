@@ -47,7 +47,7 @@ namespace PRUD.Weather.API.Controllers
         public IActionResult Upload()
         {
             try
-            {
+            {                
                 var file = Request.Form.Files[0];
                 var folderName = Path.Combine("Reports");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);

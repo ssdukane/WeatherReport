@@ -15,11 +15,11 @@ namespace PRUD.Weather.Data
 
     public class CityWeather : ICityWeather
     {
-        private Webclient Client { get; set; }
+        private WebClient Client { get; set; }
 
         public CityWeather()
         {
-            Client = new Webclient();
+            Client = new WebClient();
         }
 
         public WeatherReportForCity GetReportForCity(string city)

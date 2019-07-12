@@ -11,12 +11,12 @@ namespace PRUD.Weather.Data
         IRestResponse<WeatherReportForCity> Execute(string city);
     }
 
-    public class Webclient : IWebClient
+    public class WebClient : IWebClient
     {
         private RestClient Client { get; set; }
         private RestRequest Request { get; set; }
 
-        public Webclient()
+        public WebClient()
         {
             //api.openweathermap.org / data / 2.5 / weather ? q = London & appid = aa69195559bd4f88d79f9aadeb77a8f6
             Client = new RestClient("http://api.openweathermap.org/data/2.5/weather");

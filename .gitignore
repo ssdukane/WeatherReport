@@ -11,3 +11,4 @@
 /PRUD.Weather.API/obj
 /.vs/PRUD.Weather.API
 /PRUD.Weather.API/outputfolder
+/PRUD.Weather.API.Tests/bin/Debug/netcoreapp2.2

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PRUD.Weather.API\PRUD.Weather.API.csproj" />
     <ProjectReference Include="..\PRUD.Weather.Data\PRUD.Weather.Data.csproj" />
     <ProjectReference Include="..\PRUD.Weather.Models\PRUD.Weather.Models.csproj" />
   </ItemGroup>

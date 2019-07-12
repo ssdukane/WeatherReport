@@ -82,7 +82,7 @@ namespace PRUD.Weather.Data
                 }
             }
 
-            return new { City = city, Report = "New report created", ReportName = file };
+            return new { City = city, Status = "New report created", Name = file };
         }
     }
 }
