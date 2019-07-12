@@ -10,7 +10,7 @@ using PRUD.Weather.Data;
 using System.IO;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
-
+using System.Text.RegularExpressions;
 
 namespace PRUD.Weather.API.Controllers
 {
@@ -20,6 +20,7 @@ namespace PRUD.Weather.API.Controllers
     {
         private IConfiguration configuration;
         private CityWeather CityWeather;
+        private static readonly Regex Validator = new Regex(@",.;'");
 
         public WeatherController()
         {
@@ -37,10 +38,22 @@ namespace PRUD.Weather.API.Controllers
         // GET api/weather/"london"
         [HttpGet("{city}")]
         public ActionResult<string> Get(string city)
-        {
-            var data = CityWeather.GenerateReportForCity(city);
+        {            
+            try
+            {
+                if (city.Any(ch => !Char.IsLetterOrDigit(ch)) || city.Any(ch => !Char.IsDigit(ch)))    
+                {
+                    var error = "Incorrect city. Input must be in specified format";
+                    return Ok(new { city, error });
+                }
 
-            return data;
+                var data = CityWeather.GenerateReportForCity(city);
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpPost, DisableRequestSizeLimit]

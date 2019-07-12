@@ -10,12 +10,6 @@ namespace PRUD.Weather.API.Tests
 {
     public class UnitTest
     {
-
-        public UnitTest()
-        {
-
-        }
-
         [Fact]
         public void TestGetWithCity()
         {
