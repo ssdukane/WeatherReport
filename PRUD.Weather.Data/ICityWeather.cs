@@ -13,7 +13,7 @@ namespace PRUD.Weather.Data
         string GetReportForCityAsJson(string city);
     }
 
-    public class CityWeather: ICityWeather
+    public class CityWeather : ICityWeather
     {
         private Webclient Client { get; set; }
 
@@ -38,21 +38,38 @@ namespace PRUD.Weather.Data
 
         public string GenerateReportForCity(string city)
         {
-            var response = Client.Execute(city);
-            var result = Utilities.SaveWeatherReportForCity(city, response.Content);
+            try
+            {
+                var response = Client.Execute(city);
 
-            return JsonConvert.SerializeObject(result);
+                var result = Utilities.SaveWeatherReportForCity(city, response.Content);
+
+                return JsonConvert.SerializeObject(result);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
         }
 
         public string GenerateReportCitiwise(IEnumerable<string> cities)
         {
-            dynamic result = new ExpandoObject();
-            foreach(var city in cities)
+            try
             {
-                Utilities.AddProperty(result, city, GenerateReportForCity(city));
-            }
+                dynamic result = new ExpandoObject();
+                foreach (var city in cities)
+                {
+                    var response = Client.Execute(city);
+                    Utilities.AddProperty(result, city, Utilities.SaveWeatherReportForCity(city, response.Content));
+                }
 
-            return JsonConvert.SerializeObject(result); ;
-        }      
+                return JsonConvert.SerializeObject(result); ;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }

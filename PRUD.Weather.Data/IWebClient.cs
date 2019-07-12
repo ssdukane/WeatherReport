@@ -20,14 +20,13 @@ namespace PRUD.Weather.Data
         {
             //api.openweathermap.org / data / 2.5 / weather ? q = London & appid = aa69195559bd4f88d79f9aadeb77a8f6
             Client = new RestClient("http://api.openweathermap.org/data/2.5/weather");
-
-            Request = new RestRequest(Method.GET);
-            Request.AddHeader("content-type", "content-type");
-            Request.AddHeader("appid", "aa69195559bd4f88d79f9aadeb77a8f6");
         }        
 
         public IRestResponse<WeatherReportForCity> Execute(string city)
         {
+            Request = new RestRequest(Method.GET);
+            Request.AddHeader("content-type", "content-type");
+            Request.AddHeader("appid", "aa69195559bd4f88d79f9aadeb77a8f6");
             Request.AddHeader("q", city);
             return Client.Execute<WeatherReportForCity>(Request);
         }
