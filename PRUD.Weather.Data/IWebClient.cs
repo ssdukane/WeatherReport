@@ -22,6 +22,11 @@ namespace PRUD.Weather.Data
             Client = new RestClient("http://api.openweathermap.org/data/2.5/weather");
         }        
 
+        /// <summary>
+        /// Make request to main source to fetch detail for city
+        /// </summary>
+        /// <param name="city"></param>
+        /// <returns></returns>
         public IRestResponse<WeatherReportForCity> Execute(string city)
         {
             Request = new RestRequest(Method.GET);

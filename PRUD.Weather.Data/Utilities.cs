@@ -9,6 +9,12 @@ namespace PRUD.Weather.Data
 {
     public static class Utilities
     {
+        /// <summary>
+        /// Generate dynamic property for dynamic object
+        /// </summary>
+        /// <param name="expando"></param>
+        /// <param name="propertyName"></param>
+        /// <param name="propertyValue"></param>
         public static void AddProperty(ExpandoObject expando, string propertyName, object propertyValue)
         {
             // ExpandoObject supports IDictionary so we can extend it like this
@@ -19,6 +25,11 @@ namespace PRUD.Weather.Data
                 expandoDict.Add(propertyName, propertyValue);
         }
 
+        /// <summary>
+        /// Read all content of file and return list of string
+        /// </summary>
+        /// <param name="fullPath"></param>
+        /// <returns></returns>
         public static IEnumerable<string> ReadATextFile(string fullPath)
         {
             string filedata = string.Empty;
@@ -34,6 +45,12 @@ namespace PRUD.Weather.Data
             return filedata.Split(',').ToList();
         }
 
+        /// <summary>
+        /// Read all content of file and return list of string separated by user defined separator
+        /// </summary>
+        /// <param name="fullPath"></param>
+        /// <param name="separator"></param>
+        /// <returns></returns>
         public static IEnumerable<string> ReadATextFile(string fullPath, char separator)
         {
             string filedata = string.Empty;
@@ -49,6 +66,12 @@ namespace PRUD.Weather.Data
             return filedata.Split(separator).ToList(); ;
         }
 
+        /// <summary>
+        /// Save weather report in specified directory
+        /// </summary>
+        /// <param name="city"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
         internal static dynamic SaveWeatherReportForCity(string city, string content)
         {
             var file = city + "_" + DateTime.Now.Date.ToString("ddMMMyyyy") + ".txt";

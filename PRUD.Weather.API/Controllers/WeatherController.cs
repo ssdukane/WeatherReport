@@ -18,15 +18,18 @@ namespace PRUD.Weather.API.Controllers
     [ApiController]
     public class WeatherController : ControllerBase
     {
-        private IConfiguration configuration;
         private CityWeather CityWeather;
         private static readonly Regex Validator = new Regex(@",.;'");
 
         public WeatherController()
         {
             CityWeather = new CityWeather();
-
         }
+
+        /// <summary>
+        /// Default message
+        /// </summary>
+        /// <returns></returns>
         // GET api/weather
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -35,6 +38,11 @@ namespace PRUD.Weather.API.Controllers
             return new string[] { "welcome to Weather Report Service", "-----@@@----" };
         }
 
+        /// <summary>
+        /// Generate weather report for single city
+        /// </summary>
+        /// <param name="city"></param>
+        /// <returns></returns>
         // GET api/weather/"london"
         [HttpGet("{city}")]
         public ActionResult<string> Get(string city)
@@ -59,6 +67,10 @@ namespace PRUD.Weather.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Generate weather report for cities by uploading list in .txt file
+        /// </summary>
+        /// <returns></returns>
         [HttpPost, DisableRequestSizeLimit]
         public IActionResult Upload()
         {
@@ -96,58 +108,5 @@ namespace PRUD.Weather.API.Controllers
             }
         }
 
-        //[HttpPost, DisableRequestSizeLimit]
-        //public IActionResult Upload(char separator)
-        //{
-        //    try
-        //    {
-        //        var file = Request.Form.Files[0];
-        //        var folderName = Path.Combine("Reports");
-        //        var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-
-        //        if (file.Length > 0)
-        //        {
-        //            var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-        //            var fullPath = Path.Combine(pathToSave, fileName);
-        //            var dbPath = Path.Combine(folderName, fileName);
-
-        //            using (var stream = new FileStream(fullPath, FileMode.Create))
-        //            {
-        //                file.CopyTo(stream);
-        //            }
-
-        //            if (separator == ' ')
-        //            {
-        //                separator = ',';                        
-        //            }
-
-        //            var content = Utilities.ReadATextFile(fullPath);
-
-        //            var result = CityWeather.GenerateReportCitiwise(content);
-
-        //            return Ok(new { dbPath, result });
-        //        }
-        //        else
-        //        {
-        //            return BadRequest();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, "Internal server error");
-        //    }
-        //}
-
-        // PUT api/weather/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/weather/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }
