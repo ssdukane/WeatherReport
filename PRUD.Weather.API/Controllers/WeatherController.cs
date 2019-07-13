@@ -25,7 +25,7 @@ namespace PRUD.Weather.API.Controllers
         public WeatherController()
         {
             CityWeather = new CityWeather();
-            
+
         }
         // GET api/weather
         [HttpGet]
@@ -38,17 +38,20 @@ namespace PRUD.Weather.API.Controllers
         // GET api/weather/"london"
         [HttpGet("{city}")]
         public ActionResult<string> Get(string city)
-        {            
+        {
             try
             {
-                if (city.Any(ch => !Char.IsLetterOrDigit(ch)) || city.Any(ch => !Char.IsDigit(ch)))    
+                //if (city.Any(ch => !Char.IsLetterOrDigit(ch)) || city.Any(ch => !Char.IsDigit(ch)))
+                if (city.Any(ch => !Char.IsLetterOrDigit(ch)))
                 {
-                    var error = "Incorrect city. Input must be in specified format";
+                    var error = "Incorrect city name. Input string without any special character!";
                     return Ok(new { city, error });
                 }
-
-                var data = CityWeather.GenerateReportForCity(city);
-                return data;
+                else
+                {
+                    var data = CityWeather.GenerateReportForCity(city);
+                    return data;
+                }
             }
             catch (Exception ex)
             {
@@ -60,7 +63,7 @@ namespace PRUD.Weather.API.Controllers
         public IActionResult Upload()
         {
             try
-            {                
+            {
                 var file = Request.Form.Files[0];
                 var folderName = Path.Combine("Reports");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
@@ -79,8 +82,8 @@ namespace PRUD.Weather.API.Controllers
                     var content = Utilities.ReadATextFile(fullPath);
 
                     var result = CityWeather.GenerateReportCitiwise(content);
-                                                         
-                    return Ok(new { dbPath , result });
+
+                    return Ok(new { dbPath, result });
                 }
                 else
                 {
