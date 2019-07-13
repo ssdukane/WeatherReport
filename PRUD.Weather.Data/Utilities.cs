@@ -51,11 +51,11 @@ namespace PRUD.Weather.Data
 
         internal static dynamic SaveWeatherReportForCity(string city, string content)
         {
-            var file = city + "_" + DateTime.Now.Date.ToShortDateString() + ".txt";
+            var file = city + "_" + DateTime.Now.Date.ToString("ddMMMyyyy") + ".txt";
             var fullPath = Path.Combine("outputfolder", city);
-            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), fullPath, file);
-                       
-            if (Directory.Exists(fullPath))
+            var pathToSave = Path.Combine(@"C:\", fullPath, file);
+            //var pathToSave = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fullPath, file);
+            if (Directory.Exists(pathToSave))
                 if (File.Exists(pathToSave))
                     return new { City = city, Report = "Report is already Exist", ReportName = file };
                 else
@@ -71,7 +71,7 @@ namespace PRUD.Weather.Data
                 }
             else
             {
-                Directory.CreateDirectory(fullPath);
+                Directory.CreateDirectory(pathToSave);
                 using (FileStream fs = File.Create(pathToSave))
                 {
                     // Add some text to file    
