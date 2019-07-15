@@ -78,7 +78,7 @@ namespace PRUD.Weather.Data
             var fullPath = Path.Combine("outputfolder", city);
             var pathToSave = Path.Combine(@"C:\", fullPath, file);
             //var pathToSave = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fullPath, file);
-            if (Directory.Exists(pathToSave))
+            if (Directory.Exists(fullPath))
                 if (File.Exists(pathToSave))
                     return new { City = city, Report = "Report is already Exist", ReportName = file };
                 else
@@ -94,7 +94,7 @@ namespace PRUD.Weather.Data
                 }
             else
             {
-                Directory.CreateDirectory(pathToSave);
+                Directory.CreateDirectory(fullPath);
                 using (FileStream fs = File.Create(pathToSave))
                 {
                     // Add some text to file    
