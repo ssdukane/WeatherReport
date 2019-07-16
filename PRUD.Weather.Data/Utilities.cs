@@ -75,8 +75,8 @@ namespace PRUD.Weather.Data
         internal static dynamic SaveWeatherReportForCity(string city, string content)
         {
             var file = city + "_" + DateTime.Now.Date.ToString("ddMMMyyyy") + ".txt";
-            var fullPath = Path.Combine("outputfolder", city);
-            var pathToSave = Path.Combine(@"C:\", fullPath, file);
+            var fullPath = Path.Combine(@"C:\outputfolder", city);
+            var pathToSave = Path.Combine(fullPath, file);
             //var pathToSave = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fullPath, file);
             if (Directory.Exists(fullPath))
                 if (File.Exists(pathToSave))
