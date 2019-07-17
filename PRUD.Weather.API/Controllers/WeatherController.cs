@@ -18,12 +18,12 @@ namespace PRUD.Weather.API.Controllers
     [ApiController]
     public class WeatherController : ControllerBase
     {
-        private CityWeather CityWeather;
+        private ICityWeather _cityWeather;
         private static readonly Regex Validator = new Regex(@",.;'");
 
-        public WeatherController()
+        public WeatherController(ICityWeather cityWeather)
         {
-            CityWeather = new CityWeather();
+            _cityWeather = cityWeather;
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace PRUD.Weather.API.Controllers
                 }
                 else
                 {
-                    var data = CityWeather.GenerateReportForCity(city);
+                    var data = _cityWeather.GenerateReportForCity(city);
                     return data;
                 }
             }
@@ -93,7 +93,7 @@ namespace PRUD.Weather.API.Controllers
 
                     var content = Utilities.ReadATextFile(fullPath);
 
-                    var result = CityWeather.GenerateReportCitiwise(content);
+                    var result = _cityWeather.GenerateReportCitiwise(content);
 
                     return Ok(new { dbPath, result });
                 }

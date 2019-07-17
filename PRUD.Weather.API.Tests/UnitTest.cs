@@ -10,14 +10,20 @@ namespace PRUD.Weather.API.Tests
 {
     public class UnitTest
     {
+        private ICityWeather _cityweather;
+        private IWebClient _client;
+
+        public UnitTest(ICityWeather cityweather, IWebClient client)
+        {
+            _cityweather = cityweather;
+            _client = client;
+        }
         [Fact]
         public void TestGetWithCity()
         {
             string city = "london";
 
-            CityWeather cityWeather = new CityWeather();
-
-            var respose = cityWeather.GenerateReportForCity(city);
+            var respose = _cityweather.GenerateReportForCity(city);
 
             dynamic test = JsonConvert.DeserializeObject<Report>(respose);
 
@@ -36,13 +42,11 @@ namespace PRUD.Weather.API.Tests
         {
             string city = "london,pune";
 
-            CityWeather cityWeather = new CityWeather();
-
-            var respose = cityWeather.GenerateReportCitiwise(city.Split(','));
+            var respose = _cityweather.GenerateReportCitiwise(city.Split(','));
 
             dynamic test = JsonConvert.DeserializeObject<dynamic>(respose);
 
-            foreach(var item in test)
+            foreach (var item in test)
             {
                 if (item.Name.Equals(item.Name + "_" + DateTime.Now.Date.ToShortDateString()))
                 {
@@ -52,7 +56,7 @@ namespace PRUD.Weather.API.Tests
                 {
                     Assert.False(false);
                 }
-            }            
+            }
         }
 
         [Fact]
@@ -65,9 +69,7 @@ namespace PRUD.Weather.API.Tests
 
             var cities = Utilities.ReadATextFile(fullPath);
 
-            CityWeather cityWeather = new CityWeather();
-
-            var respose = cityWeather.GenerateReportCitiwise(cities);
+            var respose = _cityweather.GenerateReportCitiwise(cities);
 
             dynamic test = JsonConvert.DeserializeObject<dynamic>(respose);
 
@@ -89,15 +91,13 @@ namespace PRUD.Weather.API.Tests
         {
             string city = "london";
 
-            WebClient client = new WebClient();
-
-            var respose = client.Execute(city);
+            var respose = _client.Execute(city);
 
             var test = JsonConvert.DeserializeObject<WeatherReportForCity>(respose.Content);
 
             if (test.id == 294421)
             {
-                Assert.True(true); 
+                Assert.True(true);
             }
             else
             {

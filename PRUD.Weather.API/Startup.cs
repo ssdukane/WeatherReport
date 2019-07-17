@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using PRUD.Weather.Data;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace PRUD.Weather.API
@@ -27,6 +28,9 @@ namespace PRUD.Weather.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddTransient<IWebClient, WebClient>();
+            services.AddTransient<ICityWeather, CityWeather>();
 
             services.AddSwaggerGen(c =>
             {

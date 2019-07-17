@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PRUD.Weather.Data
 {
-    interface IWebClient
+    public interface IWebClient
     {
         IRestResponse<WeatherReportForCity> Execute(string city);
     }

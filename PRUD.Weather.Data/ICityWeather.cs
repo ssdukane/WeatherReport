@@ -10,19 +10,22 @@ namespace PRUD.Weather.Data
     /// <summary>
     /// 
     /// </summary>
-    interface ICityWeather
+    public interface ICityWeather
     {
         WeatherReportForCity GetReportForCity(string city);
         string GetReportForCityAsJson(string city);
+
+        string GenerateReportForCity(string city);
+        string GenerateReportCitiwise(IEnumerable<string> cities);
     }
         
     public class CityWeather : ICityWeather
     {
-        private WebClient Client { get; set; }
+        private IWebClient _client { get; set; }
 
-        public CityWeather()
+        public CityWeather(IWebClient client)
         {
-            Client = new WebClient();
+            _client = client;
         }
 
         /// <summary>
@@ -32,7 +35,7 @@ namespace PRUD.Weather.Data
         /// <returns></returns>
         public WeatherReportForCity GetReportForCity(string city)
         {
-            var response = Client.Execute(city);
+            var response = _client.Execute(city);
 
             return response.Data;
         }
@@ -44,7 +47,7 @@ namespace PRUD.Weather.Data
         /// <returns></returns>
         public string GetReportForCityAsJson(string city)
         {
-            var response = Client.Execute(city);
+            var response = _client.Execute(city);
 
             return response.Content;
         }
@@ -58,7 +61,7 @@ namespace PRUD.Weather.Data
         {
             try
             {
-                var response = Client.Execute(city);
+                var response = _client.Execute(city);
 
                 var result = Utilities.SaveWeatherReportForCity(city, response.Content);
 
@@ -83,7 +86,7 @@ namespace PRUD.Weather.Data
                 dynamic result = new ExpandoObject();
                 foreach (var city in cities)
                 {
-                    var response = Client.Execute(city);
+                    var response = _client.Execute(city);
                     Utilities.AddProperty(result, city, Utilities.SaveWeatherReportForCity(city, response.Content));
                 }
 
