@@ -21,6 +21,7 @@ namespace PRUD.Weather.API.Controllers
         private ICityWeather _cityWeather;
         private static readonly Regex Validator = new Regex(@",.;'");
 
+        // Constructor
         public WeatherController(ICityWeather cityWeather)
         {
             _cityWeather = cityWeather;
@@ -60,6 +61,29 @@ namespace PRUD.Weather.API.Controllers
                     var data = _cityWeather.GenerateReportForCity(city);
                     return data;
                 }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        
+          /// <summary>
+        /// Generate weather report for single city
+        /// </summary>
+        /// <param name="city"></param>
+        /// <returns></returns>
+        // GET api/weather/"london"
+        [HttpGet("{city}")]
+        public ActionResult<string> Get(int cityID)
+        {
+            try
+            {
+                //if (city.Any(ch => !Char.IsLetterOrDigit(ch)) || city.Any(ch => !Char.IsDigit(ch)))
+                
+                var city = "Mumbai"   // DAL.GetCityByID(cityID);
+                //Bug
+                return city
             }
             catch (Exception ex)
             {
