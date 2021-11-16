@@ -21,6 +21,7 @@ namespace PRUD.Weather.API.Controllers
         private ICityWeather _cityWeather;
         private static readonly Regex Validator = new Regex(@",.;'");
 
+        // Constructor
         public WeatherController(ICityWeather cityWeather)
         {
             _cityWeather = cityWeather;
