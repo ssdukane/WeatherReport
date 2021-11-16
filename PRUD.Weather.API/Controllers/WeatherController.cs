@@ -66,6 +66,28 @@ namespace PRUD.Weather.API.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+        
+          /// <summary>
+        /// Generate weather report for single city
+        /// </summary>
+        /// <param name="city"></param>
+        /// <returns></returns>
+        // GET api/weather/"london"
+        [HttpGet("{city}")]
+        public ActionResult<string> Get(int cityID)
+        {
+            try
+            {
+                //if (city.Any(ch => !Char.IsLetterOrDigit(ch)) || city.Any(ch => !Char.IsDigit(ch)))
+                
+                var city = "Mumbai"   // DAL.GetCityByID(cityID);
+                return city
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
 
         /// <summary>
         /// Generate weather report for cities by uploading list in .txt file
