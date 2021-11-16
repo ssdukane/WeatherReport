@@ -81,6 +81,7 @@ namespace PRUD.Weather.API.Controllers
                 //if (city.Any(ch => !Char.IsLetterOrDigit(ch)) || city.Any(ch => !Char.IsDigit(ch)))
                 
                 var city = "Mumbai"   // DAL.GetCityByID(cityID);
+                //Bug
                 return city
             }
             catch (Exception ex)
